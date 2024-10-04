@@ -1,48 +1,83 @@
+import { FaPlus } from "react-icons/fa6";
+import GreenCheckmark from "./GreenCheckmark";
+import { IoEllipsisVertical } from "react-icons/io5";
+import { BsGripVertical } from "react-icons/bs";
+import ModulesControls from "./ModulesControls";
+
 export default function Modules() {
   return (
-    <div>
-      <div style={{ display: "flex", gap: "10px" }}>
-        <button>Collapse All</button>
-        <button>View Progress</button>
-        <select>
-          <option>Publish All</option>
-          <option>Publish Selected</option>
-          <option>Publish Completed</option>
-          <option>Unpublish All</option>
-        </select>
-        <button>+ Module</button>
-      </div>
-
-      <ul>
-        <li>
-          <div>Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda</div>
-          <ul>
-            <li>
-              <span>LEARNING OBJECTIVES</span>
-              <ul>
-                <li>Introduction to the course</li>
-                <li>Learn what is Web Development</li>
-              </ul>
-            </li>
-            <li>
-              <span>READING</span>
-              <ul>
-                <li>Full Stack Developer - Chapter 1 - Introduction</li>
-                <li>Full Stack Developer - Chapter 2 - Creating User</li>
-              </ul>
-            </li>
-            <li>
-              <span>SLIDES</span>
-              <ul>
-                <li>Introduction to Web Development</li>
-                <li>Creating an HTTP server with Node.js</li>
-                <li>Creating a React Application</li>
-              </ul>
-            </li>
+    <div id="wd-modules">
+      <ModulesControls />
+      <ul id="wd-modules-list" className="list-group rounded-0">
+        {/* Week 1 */}
+        <li className="wd-module module-list-group-item p-0 mb-5 fs-5 border-gray">
+          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+            <div className="d-flex align-items-center">
+              <BsGripVertical className="me-2 fs-3" />
+              Week 1
+            </div>
+            <div className="d-flex align-items-center">
+              <div className="me-2">
+                <GreenCheckmark />
+              </div>
+              <FaPlus className="me-2" />
+              <IoEllipsisVertical />
+            </div>
+          </div>
+          <ul className="wd-lessons list-group rounded-0">
+            {[
+              "LEARNING OBJECTIVES",
+              "Introduction to the course",
+              "Learn what is Web Development",
+              "LESSON 1",
+              "LESSON 2",
+            ].map((lesson, index) => (
+              <li
+                key={index}
+                className="wd-lesson module-list-group-item p-3 ps-1 d-flex justify-content-between align-items-center"
+              >
+                <div className="d-flex align-items-center">
+                  <BsGripVertical className="me-2 fs-3" />
+                  {lesson}
+                </div>
+                <div className="me-2">
+                  <GreenCheckmark />
+                </div>
+              </li>
+            ))}
           </ul>
         </li>
-        <li>
-          <div>Week 1, Lecture 2 - Formatting User Interfaces with HTML</div>
+        {/* Week 2 */}
+        <li className="wd-module module-list-group-item p-0 mb-5 fs-5 border-gray">
+          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+            <div className="d-flex align-items-center">
+              <BsGripVertical className="me-2 fs-3" />
+              Week 2
+            </div>
+            <div className="d-flex align-items-center">
+              <div className="me-2">
+                <GreenCheckmark />
+              </div>
+              <FaPlus className="me-2" />
+              <IoEllipsisVertical />
+            </div>
+          </div>
+          <ul className="wd-lessons list-group rounded-0">
+            {["LEARNING OBJECTIVES", "LESSON 1", "LESSON 2"].map(
+              (lesson, index) => (
+                <li
+                  key={index}
+                  className="wd-lesson module-list-group-item p-3 ps-1 d-flex justify-content-between align-items-center"
+                >
+                  <div className="d-flex align-items-center">
+                    <BsGripVertical className="me-2 fs-3" />
+                    {lesson}
+                  </div>
+                  <GreenCheckmark />
+                </li>
+              )
+            )}
+          </ul>
         </li>
       </ul>
     </div>
