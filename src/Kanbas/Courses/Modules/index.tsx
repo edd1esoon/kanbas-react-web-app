@@ -14,35 +14,73 @@ export default function Modules() {
       </div>
 
       <ul>
+        {/* Module 1 */}
         <li>
-          <div>Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda</div>
+          <div>Module 1: Introduction to Web Development</div>
           <ul>
+            {/* Lesson 1 */}
             <li>
-              <span>LEARNING OBJECTIVES</span>
+              <div>Lesson 1: Course Overview</div>
               <ul>
                 <li>Introduction to the course</li>
-                <li>Learn what is Web Development</li>
+                <li>Understanding the course objectives</li>
               </ul>
             </li>
+            {/* Lesson 2 */}
             <li>
-              <span>READING</span>
+              <div>Lesson 2: Basics of HTML</div>
               <ul>
-                <li>Full Stack Developer - Chapter 1 - Introduction</li>
-                <li>Full Stack Developer - Chapter 2 - Creating User</li>
-              </ul>
-            </li>
-            <li>
-              <span>SLIDES</span>
-              <ul>
-                <li>Introduction to Web Development</li>
-                <li>Creating an HTTP server with Node.js</li>
-                <li>Creating a React Application</li>
+                <li>Introduction to HTML structure</li>
+                <li>Creating basic web pages with HTML</li>
               </ul>
             </li>
           </ul>
         </li>
+
+        {/* Module 2 */}
         <li>
-          <div>Week 1, Lecture 2 - Formatting User Interfaces with HTML</div>
+          <div>Module 2: Advanced Web Technologies</div>
+          <ul>
+            {/* Lesson 1 */}
+            <li>
+              <div>Lesson 1: JavaScript Basics</div>
+              <ul>
+                <li>Understanding variables and data types</li>
+                <li>Writing simple functions in JavaScript</li>
+              </ul>
+            </li>
+            {/* Lesson 2 */}
+            <li>
+              <div>Lesson 2: Styling with CSS</div>
+              <ul>
+                <li>Introduction to CSS selectors and properties</li>
+                <li>Creating responsive designs</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        {/* Module 3 */}
+        <li>
+          <div>Module 3: Backend Development</div>
+          <ul>
+            {/* Lesson 1 */}
+            <li>
+              <div>Lesson 1: Introduction to Node.js</div>
+              <ul>
+                <li>Setting up a Node.js server</li>
+                <li>Understanding HTTP requests</li>
+              </ul>
+            </li>
+            {/* Lesson 2 */}
+            <li>
+              <div>Lesson 2: Working with Databases</div>
+              <ul>
+                <li>Introduction to MongoDB</li>
+                <li>Connecting Node.js with MongoDB</li>
+              </ul>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
