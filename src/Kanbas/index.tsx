@@ -5,7 +5,6 @@ import KanbasNavigation from "./Navigation";
 import Courses from "./Courses";
 import "./styles.css";
 import Labs from "../Labs";
-import AssignmentEditor from "./Courses/Assignments/Editor";
 
 export default function Kanbas() {
   return (
@@ -20,7 +19,6 @@ export default function Kanbas() {
           <Route path="/Calendar" element={<h1>Calendar</h1>} />
           <Route path="/Inbox" element={<h1>Inbox</h1>} />
           <Route path="/Labs/*" element={<Labs />} />
-          <Route path="Assignments/:aid" element={<AssignmentEditor />} />
         </Routes>
       </div>
     </div>

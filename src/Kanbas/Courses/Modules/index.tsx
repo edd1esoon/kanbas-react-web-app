@@ -1,85 +1,66 @@
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
 import { IoEllipsisVertical } from "react-icons/io5";
+import { useParams } from "react-router";
+import * as db from "../../Database";
 import { BsGripVertical } from "react-icons/bs";
 import ModulesControls from "./ModulesControls";
+import ModuleControlButtons from "./ModuleControlButtons";
+import LessonControlButtons from "./LessonControlButtons";
+import "../../styles.css"; 
 
 export default function Modules() {
+  const { cid } = useParams();
+  const modules = db.modules;
+
   return (
-    <div id="wd-modules">
-      <ModulesControls />
-      <ul id="wd-modules-list" className="list-group rounded-0">
-        {/* Week 1 */}
-        <li className="wd-module module-list-group-item p-0 mb-5 fs-5 border-gray">
-          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center">
-              <BsGripVertical className="me-2 fs-3" />
-              Week 1
-            </div>
-            <div className="d-flex align-items-center">
-              <div className="me-2">
-                <GreenCheckmark />
-              </div>
-              <FaPlus className="me-2" />
-              <IoEllipsisVertical />
-            </div>
-          </div>
-          <ul className="wd-lessons list-group rounded-0">
-            {[
-              "LEARNING OBJECTIVES",
-              "Introduction to the course",
-              "Learn what is Web Development",
-              "LESSON 1",
-              "LESSON 2",
-            ].map((lesson, index) => (
+    <div id="wd-modules-container">
+      <div id="wd-modules" className="list-group rounded-0">
+        <ModulesControls />
+        <ul className="list-group rounded-0">
+          {modules
+            .filter((module: any) => module.course === cid)
+            .map((module: any) => (
               <li
-                key={index}
-                className="wd-lesson module-list-group-item p-3 ps-1 d-flex justify-content-between align-items-center"
+                className="wd-module module-list-group-item p-0 mb-5 fs-5 border-gray"
+                key={module._id}
               >
-                <div className="d-flex align-items-center">
-                  <BsGripVertical className="me-2 fs-3" />
-                  {lesson}
-                </div>
-                <div className="me-2">
-                  <GreenCheckmark />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </li>
-        {/* Week 2 */}
-        <li className="wd-module module-list-group-item p-0 mb-5 fs-5 border-gray">
-          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center">
-              <BsGripVertical className="me-2 fs-3" />
-              Week 2
-            </div>
-            <div className="d-flex align-items-center">
-              <div className="me-2">
-                <GreenCheckmark />
-              </div>
-              <FaPlus className="me-2" />
-              <IoEllipsisVertical />
-            </div>
-          </div>
-          <ul className="wd-lessons list-group rounded-0">
-            {["LEARNING OBJECTIVES", "LESSON 1", "LESSON 2"].map(
-              (lesson, index) => (
-                <li
-                  key={index}
-                  className="wd-lesson module-list-group-item p-3 ps-1 d-flex justify-content-between align-items-center"
-                >
+                {/* Module title */}
+                <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
                     <BsGripVertical className="me-2 fs-3" />
-                    {lesson}
+                    {module.name}
                   </div>
-                  <GreenCheckmark />
-                </li>
-              )
-            )}
-          </ul>
-        </li>
-      </ul>
+                  <ModuleControlButtons />
+                </div>
+
+                {/* Lessons under each module */}
+                {module.lessons && (
+                  <ul className="wd-lessons list-group rounded-0">
+                    {module.lessons.map((lesson: any) => (
+                      <li
+                        className="wd-lesson module-list-group-item p-3 ps-1 d-flex justify-content-between align-items-center"
+                        key={lesson._id}
+                      >
+                        <div className="d-flex align-items-center">
+                          <BsGripVertical className="me-2 fs-3" />
+                          {lesson.name}
+                        </div>
+                        <LessonControlButtons />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+        </ul>
+      </div>
+
+      {/* Optional right-side content, e.g., Course Status */}
+      <div id="wd-course-status" className="course-status">
+        <h4>Course Status</h4>
+        <p>Some additional course-related information can go here.</p>
+      </div>
     </div>
   );
 }

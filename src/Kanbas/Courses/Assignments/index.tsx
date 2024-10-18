@@ -1,11 +1,23 @@
+import React, { useState } from "react";
+import AssignmentEditor from "./Editor"; 
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsGripVertical } from "react-icons/bs";
-import { HiOutlineDocumentText } from "react-icons/hi"; 
+import { HiOutlineDocumentText } from "react-icons/hi";
+import { useParams } from "react-router-dom";
+import * as db from "../../Database";
 import "../../styles.css";
 
 export default function Assignments() {
+  const { cid } = useParams<{ cid: string }>();
+  const assignments = db.assignments.filter((assignment) => assignment.course === cid);
+  const [editingAssignmentId, setEditingAssignmentId] = useState<string | null>(null);
+
+  if (editingAssignmentId) {
+    return <AssignmentEditor aid={editingAssignmentId} cid={cid || ""} />;
+  }
+
   return (
     <div id="wd-assignments" className="p-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -31,10 +43,7 @@ export default function Assignments() {
           <strong>ASSIGNMENTS</strong>
         </div>
         <div className="d-flex align-items-center">
-          <div
-            className="px-3 py-1 border rounded-pill"
-            style={{ backgroundColor: "#e9ecef" }}
-          >
+          <div className="px-3 py-1 border rounded-pill" style={{ backgroundColor: "#e9ecef" }}>
             40% of Total
           </div>
           <FaPlus className="ms-3" />
@@ -43,50 +52,24 @@ export default function Assignments() {
       </div>
 
       <ul id="wd-assignments-list" className="list-group rounded-0">
-        {[
-          {
-            title: "A1 - ENV + HTML",
-            due: "Due May 13 at 11:59pm",
-            availability: "Not available until May 6 at 12:00am",
-            points: "100 pts",
-            link: "#/Kanbas/Courses/1234/Assignments/123",
-          },
-          {
-            title: "A2 - CSS + BOOTSTRAP",
-            due: "Due May 20 at 11:59pm",
-            availability: "Not available until May 13 at 12:00am",
-            points: "100 pts",
-            link: "#",
-          },
-          {
-            title: "A3 - JAVASCRIPT + REACT",
-            due: "Due May 27 at 11:59pm",
-            availability: "Not available until May 20 at 12:00am",
-            points: "100 pts",
-            link: "#",
-          },
-        ].map((assignment, index) => (
+        {assignments.map((assignment) => (
           <li
-            key={index}
+            key={assignment._id}
             className="wd-lesson module-list-group-item p-3 d-flex justify-content-between align-items-center mb-3 border-0"
           >
-            <div
-              className="d-flex align-items-center"
-              style={{ minWidth: "80px" }}
-            >
+            <div className="d-flex align-items-center" style={{ minWidth: "80px" }}>
               <BsGripVertical className="me-2 fs-3 text-muted" />
               <HiOutlineDocumentText className="fs-3 text-success" />
             </div>
             <div className="d-flex flex-column flex-grow-1 ms-3">
-              <a
-                href={assignment.link}
-                className="fw-bold fs-4 text-decoration-none text-dark mb-1"
+              <button
+                className="fw-bold fs-4 text-decoration-none text-dark mb-1 btn btn-link"
+                onClick={() => setEditingAssignmentId(assignment._id)}
               >
                 {assignment.title}
-              </a>
+              </button>
               <div className="text-muted">
-                <span className="text-danger fw-bold">Multiple Modules</span> |{" "}
-                {assignment.availability} <br />
+                <span className="text-danger fw-bold">Multiple Modules</span> | {assignment.availability} <br />
                 {assignment.due} | {assignment.points}
               </div>
             </div>

@@ -30,6 +30,8 @@ import Classes from "./Classes";
 import Styles from "./Styles";
 import Add from "./Add";
 import Highlight from "./Highlight";
+import AddPathParameters from "./AddPathParameters";
+import PathParameters from "./PathParameters";
 
 export default function Lab3() {
   return (
@@ -71,6 +73,8 @@ export default function Lab3() {
         excepturi consectetur. Modi omnis minus sequi maiores, provident
         voluptates.
       </Highlight>
+      <PathParameters />
+      <AddPathParameters />
     </div>
   );
 }
