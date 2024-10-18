@@ -1,8 +1,10 @@
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
+
 export default function TOC() {
   const { pathname } = useLocation();
   return (
-    <ul className="nav nav-pills">
+    <ul className="nav nav-pills" id="wd-toc">
       <li className="nav-item">
         <a id="wd-a" href="#/Labs" className="nav-link">
           Labs
@@ -35,6 +37,7 @@ export default function TOC() {
           Lab 3
         </a>
       </li>
+
       <li className="nav-item">
         <a id="wd-k" href="#/Kanbas" className="nav-link">
           Kanbas
