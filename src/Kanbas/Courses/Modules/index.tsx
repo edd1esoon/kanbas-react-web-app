@@ -1,22 +1,36 @@
+import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router";
-import * as db from "../../Database";
 import { BsGripVertical } from "react-icons/bs";
 import ModulesControls from "./ModulesControls";
 import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
-import "../../styles.css"; 
+import "../../styles.css";
+import { addModule, editModule, updateModule, deleteModule } from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Modules() {
   const { cid } = useParams();
-  const modules = db.modules;
+  const [moduleName, setModuleName] = useState("");
+  
+  const modules = useSelector((state: any) => state.modules.modules);
+  const dispatch = useDispatch();
+
+  const handleAddModule = () => {
+    dispatch(addModule({ name: moduleName, course: cid, _id: new Date().getTime().toString() }));
+    setModuleName("");
+  };
 
   return (
     <div id="wd-modules-container">
       <div id="wd-modules" className="list-group rounded-0">
-        <ModulesControls />
+        <ModulesControls
+          setModuleName={setModuleName}
+          moduleName={moduleName}
+          addModule={handleAddModule}
+        />
         <ul className="list-group rounded-0">
           {modules
             .filter((module: any) => module.course === cid)
@@ -25,16 +39,32 @@ export default function Modules() {
                 className="wd-module module-list-group-item p-0 mb-5 fs-5 border-gray"
                 key={module._id}
               >
-                {/* Module title */}
                 <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
                     <BsGripVertical className="me-2 fs-3" />
-                    {module.name}
+                    {!module.editing && module.name}
+                    {module.editing && (
+                      <input
+                        className="form-control w-50 d-inline-block"
+                        onChange={(e) =>
+                          dispatch(updateModule({ ...module, name: e.target.value }))
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            dispatch(updateModule({ ...module, editing: false }));
+                          }
+                        }}
+                        defaultValue={module.name}
+                      />
+                    )}
+                    <ModuleControlButtons
+                      moduleId={module._id}
+                      deleteModule={() => dispatch(deleteModule(module._id))}
+                      editModule={() => dispatch(editModule(module._id))}
+                    />
                   </div>
-                  <ModuleControlButtons />
                 </div>
 
-                {/* Lessons under each module */}
                 {module.lessons && (
                   <ul className="wd-lessons list-group rounded-0">
                     {module.lessons.map((lesson: any) => (
@@ -56,7 +86,6 @@ export default function Modules() {
         </ul>
       </div>
 
-      {/* Optional right-side content, e.g., Course Status */}
       <div id="wd-course-status" className="course-status">
         <h4>Course Status</h4>
         <p>Some additional course-related information can go here.</p>
