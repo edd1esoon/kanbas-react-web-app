@@ -14,12 +14,18 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Modules() {
   const { cid } = useParams();
   const [moduleName, setModuleName] = useState("");
-  
-  const modules = useSelector((state: any) => state.modules.modules);
+
+  const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
 
   const handleAddModule = () => {
-    dispatch(addModule({ name: moduleName, course: cid, _id: new Date().getTime().toString() }));
+    dispatch(
+      addModule({
+        name: moduleName,
+        course: cid,
+        _id: new Date().getTime().toString(),
+      })
+    );
     setModuleName("");
   };
 
@@ -40,29 +46,34 @@ export default function Modules() {
                 key={module._id}
               >
                 <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
-                  <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center flex-grow-1">
                     <BsGripVertical className="me-2 fs-3" />
                     {!module.editing && module.name}
                     {module.editing && (
                       <input
                         className="form-control w-50 d-inline-block"
                         onChange={(e) =>
-                          dispatch(updateModule({ ...module, name: e.target.value }))
+                          dispatch(
+                            updateModule({ ...module, name: e.target.value })
+                          )
                         }
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
-                            dispatch(updateModule({ ...module, editing: false }));
+                            dispatch(
+                              updateModule({ ...module, editing: false })
+                            );
                           }
                         }}
                         defaultValue={module.name}
                       />
                     )}
-                    <ModuleControlButtons
-                      moduleId={module._id}
-                      deleteModule={() => dispatch(deleteModule(module._id))}
-                      editModule={() => dispatch(editModule(module._id))}
-                    />
                   </div>
+
+                  <ModuleControlButtons
+                    moduleId={module._id}
+                    deleteModule={() => dispatch(deleteModule(module._id))}
+                    editModule={() => dispatch(editModule(module._id))}
+                  />
                 </div>
 
                 {module.lessons && (
@@ -76,7 +87,9 @@ export default function Modules() {
                           <BsGripVertical className="me-2 fs-3" />
                           {lesson.name}
                         </div>
-                        <LessonControlButtons />
+                        <div className="d-flex align-items-center">
+                          <LessonControlButtons />
+                        </div>
                       </li>
                     ))}
                   </ul>

@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import AssignmentEditor from "./Editor"; 
+import AssignmentEditor from "./Editor";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsGripVertical } from "react-icons/bs";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { useParams } from "react-router-dom";
-import * as db from "../../Database";
 import "../../styles.css";
 
 export default function Assignments() {
   const { cid } = useParams<{ cid: string }>();
-  const assignments = db.assignments.filter((assignment) => assignment.course === cid);
+  const assignments = useSelector((state: RootState) =>
+    state.assignments.assignments.filter((assignment) => assignment.course === cid)
+  );
   const [editingAssignmentId, setEditingAssignmentId] = useState<string | null>(null);
 
   if (editingAssignmentId) {
@@ -31,7 +34,11 @@ export default function Assignments() {
           <button id="wd-add-group-btn" className="btn btn-secondary me-2">
             + Group
           </button>
-          <button id="wd-add-assignment-btn" className="btn btn-danger">
+          <button
+            id="wd-add-assignment-btn"
+            className="btn btn-danger"
+            onClick={() => setEditingAssignmentId(null)} // 创建新 Assignment
+          >
             + Assignment
           </button>
         </div>

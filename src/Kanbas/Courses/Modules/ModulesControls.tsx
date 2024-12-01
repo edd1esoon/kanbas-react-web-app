@@ -87,13 +87,6 @@ export default function ModulesControls({
           </ul>
         </div>
 
-        <button id="wd-add-module-btn" className="btn btn-lg btn-danger me-2">
-          <FaPlus
-            className="position-relative me-2"
-            style={{ bottom: "1px" }}
-          />
-          Module
-        </button>
         <button className="btn btn-lg btn-danger me-1 float-end" id="wd-add-module-btn"
         data-bs-toggle="modal" data-bs-target="#wd-add-module-dialog" >
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
