@@ -3,22 +3,36 @@ import AssignmentEditor from "./Editor";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { FaPlus } from "react-icons/fa6";
-import GreenCheckmark from "../Modules/GreenCheckmark";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsGripVertical } from "react-icons/bs";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { useParams } from "react-router-dom";
 import "../../styles.css";
+import GreenCheckmark from "../Modules/GreenCheckmark";
 
 export default function Assignments() {
   const { cid } = useParams<{ cid: string }>();
   const assignments = useSelector((state: RootState) =>
-    state.assignments.assignments.filter((assignment) => assignment.course === cid)
+    state.assignments.assignments.filter(
+      (assignment) => assignment.course === cid
+    )
   );
-  const [editingAssignmentId, setEditingAssignmentId] = useState<string | null>(null);
+  const [editingAssignmentId, setEditingAssignmentId] = useState<string | null>(
+    null
+  );
+
+  const handleReturnToList = () => {
+    setEditingAssignmentId(null);
+  };
 
   if (editingAssignmentId) {
-    return <AssignmentEditor aid={editingAssignmentId} cid={cid || ""} />;
+    return (
+      <AssignmentEditor
+        aid={editingAssignmentId}
+        cid={cid || ""}
+        onClose={handleReturnToList}
+      />
+    );
   }
 
   return (
@@ -37,7 +51,7 @@ export default function Assignments() {
           <button
             id="wd-add-assignment-btn"
             className="btn btn-danger"
-            onClick={() => setEditingAssignmentId(null)} // 创建新 Assignment
+            onClick={() => setEditingAssignmentId("new")}
           >
             + Assignment
           </button>
@@ -50,10 +64,16 @@ export default function Assignments() {
           <strong>ASSIGNMENTS</strong>
         </div>
         <div className="d-flex align-items-center">
-          <div className="px-3 py-1 border rounded-pill" style={{ backgroundColor: "#e9ecef" }}>
+          <div
+            className="px-3 py-1 border rounded-pill"
+            style={{ backgroundColor: "#e9ecef" }}
+          >
             40% of Total
           </div>
-          <FaPlus className="ms-3" />
+          <FaPlus
+            className="ms-3"
+            onClick={() => setEditingAssignmentId("new")}
+          />
           <IoEllipsisVertical className="ms-3" />
         </div>
       </div>
@@ -64,7 +84,10 @@ export default function Assignments() {
             key={assignment._id}
             className="wd-lesson module-list-group-item p-3 d-flex justify-content-between align-items-center mb-3 border-0"
           >
-            <div className="d-flex align-items-center" style={{ minWidth: "80px" }}>
+            <div
+              className="d-flex align-items-center"
+              style={{ minWidth: "80px" }}
+            >
               <BsGripVertical className="me-2 fs-3 text-muted" />
               <HiOutlineDocumentText className="fs-3 text-success" />
             </div>
@@ -76,7 +99,8 @@ export default function Assignments() {
                 {assignment.title}
               </button>
               <div className="text-muted">
-                <span className="text-danger fw-bold">Multiple Modules</span> | {assignment.availability} <br />
+                <span className="text-danger fw-bold">Multiple Modules</span> |{" "}
+                {assignment.availability} <br />
                 {assignment.due} | {assignment.points}
               </div>
             </div>
