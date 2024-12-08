@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const ASSIGNMENTS_API = `${process.env.REACT_APP_REMOTE_SERVER}/api/assignments`;
+const ASSIGNMENTS_API = "https://kanbas-node-server-app.onrender.com/api/assignments";
 
 export const fetchAssignments = async () => {
   const response = await axios.get(ASSIGNMENTS_API);

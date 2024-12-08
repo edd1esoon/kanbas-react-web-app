@@ -3,10 +3,10 @@ import * as client from "../../Account/client";
 import PeopleDetails from "./Details";
 import { Link } from "react-router-dom";
 type PeopleTableProps = {
-  users?: any[];
+  users: any[];
 };
 
-export default function PeopleTable({ users = [] }: PeopleTableProps) {
+export default function PeopleTable({ users }: PeopleTableProps) {
   return (
     <div id="wd-people-table">
       <PeopleDetails />
