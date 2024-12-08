@@ -8,7 +8,6 @@ import store from "./store";
 import { Provider } from "react-redux";
 import Lab5 from "./Lab5";
 export default function Labs() {
-  console.log("Hello World");
   return (
     <Provider store={store}>
       <div className="container-fluid">

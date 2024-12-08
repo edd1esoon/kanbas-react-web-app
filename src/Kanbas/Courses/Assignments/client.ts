@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ASSIGNMENTS_API = "http://localhost:4000/api/assignments";
+const ASSIGNMENTS_API = `${process.env.REACT_APP_REMOTE_SERVER}/api/assignments`;
 
 export const fetchAssignments = async () => {
   const response = await axios.get(ASSIGNMENTS_API);

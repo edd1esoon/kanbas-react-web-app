@@ -56,8 +56,8 @@ export default function AssignmentEditor({
       title: assignmentName,
       description,
       points: `${points} pts`,
-      due: dueDate, // 保留格式直接传回后端
-      availability: availableDate, // 保留格式直接传回后端
+      due: dueDate,
+      availability: availableDate, 
       course: cid,
     };
 
